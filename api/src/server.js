@@ -4,7 +4,6 @@ const resolvers = require('./resolvers')
 const {models, db} = require('./db')
 
 const server = new ApolloServer({
-  
   typeDefs,
   resolvers,
   context() {
