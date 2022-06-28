@@ -12,6 +12,7 @@ module.exports = {
       return ctx.models.Pet.findMany(input || {})
     },
     pet(_, {id}, ctx) {
+      console.log('Query => Pet')
       return ctx.models.Pet.findOne({id})
     }
   },
@@ -21,14 +22,21 @@ module.exports = {
       return pet
     }
   },
-  // Pet: {
+  Pet: {
+    owner(_, __, ctx) { 
+      console.log('PET => owner')
+      return ctx.models.User.findOne() 
+    }
   //   img(pet) {
   //     return pet.type === 'DOG'
   //       ? 'https://placedog.net/300/300'
   //       : 'http://placekitten.com/300/300'
   //   }
-  // },
-  // User: {
-    
-  //}
+  },
+  User: {
+    pets(_, __, ctx) { 
+      console.log('owner => pets')
+      return ctx.models.Pet.findMany()
+    }
+  }
 }
