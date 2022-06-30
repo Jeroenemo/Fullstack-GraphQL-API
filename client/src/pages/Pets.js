@@ -5,17 +5,11 @@ import PetsList from '../components/PetsList'
 import NewPetModal from '../components/NewPetModal'
 import Loader from '../components/Loader'
 
-<<<<<<< HEAD
-export default function Pets () {
-  const [modal, setModal] = useState(false)
-  
-=======
 
 export default function Pets () {
   const [modal, setModal] = useState(false)
 
 
->>>>>>> a3b380a0a6e799fc9207f00cc7c9fc523a4dd869
   const onSubmit = input => {
     setModal(false)
   }
