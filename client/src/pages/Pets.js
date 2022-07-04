@@ -37,16 +37,33 @@ export default function Pets () {
         query: ALL_PETS,
         data: {pets: [addPet, ...data.pets]}
       }) 
-    }
+    },  
+    //Global, will happen every time createPet is invoked
+    //No access to variables
+    optimisticResponse: {}
   });
 
   const onSubmit = input => {
     setModal(false) 
     console.log(input.name)
-    createPet({ variables: {petInput: input} })
+    createPet({  
+      variables: {petInput: input}, 
+      //Will only happen once 
+      //Does have access to varaibles
+      optimisticResponse: { 
+        __typename: 'Mutation', 
+        Pet: {
+          __typename: 'Pet', 
+          id: Date.now(), 
+          name: input.name, 
+          type: input.type, 
+          img: 'https://via.placeholder.com/300'
+        }
+      }
+    })
   }
 
-  if (loading || newPet.loading) {
+  if (loading) {
     return <Loader />
   } 
 
