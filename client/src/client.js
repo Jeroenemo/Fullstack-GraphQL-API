@@ -5,9 +5,28 @@ import { ApolloLink } from 'apollo-link'
 import gql from 'graphql-tag'
 import { setContext } from 'apollo-link-context'
 
-/**
- * Create a new apollo client and export as default
- */
+const typeDefs = gql` 
+  extend type User { 
+    age: Int
+  } 
+
+  extend type Pet {
+    vaccinated: Boolean!
+  }
+`  
+
+const resolvers = { 
+  User: { 
+    age() { 
+      return 35
+    }
+  }, 
+  Pet: { 
+    vaccinated() {
+      return true
+    }
+  }
+}
 //network interface to access gql server
 const http = new HttpLink({uri:'http://localhost:4000/'})  
 const delay = setContext(
@@ -27,7 +46,9 @@ const cache = new InMemoryCache()
 
 const client = new ApolloClient({
   link,
-  cache
+  cache,
+  resolvers, 
+  typeDefs
 })
 
 export default client
